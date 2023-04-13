@@ -3,7 +3,7 @@ import pyttsx3
 import time
 
 ##OPENCV DNN
-net = cv2.dnn.readNet("E:/Project/new/dnn_model/yolov4-tiny.weights", "E:/Project/new/dnn_model/yolov4-tiny.cfg")
+net = cv2.dnn.readNet("E:/Project/Blindness Assistant/dnn_model/yolov4.weights", "E:/Project/Blindness Assistant/dnn_model/yolov4.cfg")
 model = cv2.dnn_DetectionModel(net)
 model.setInputParams(size =(320,320), scale = 1/255)
 
@@ -13,7 +13,7 @@ text_speech=pyttsx3.init()
 
 ## LOAD CLASS LISTS
 classes = []  ##empty list of python
-file_name = "E:/Project/new/dnn_model/classes.txt"
+file_name = "E:/Project/Blindness Assistant/dnn_model/classes.txt"
 
 with open(file_name, "rt") as fpt:
     for class_name in fpt.readlines():
@@ -42,9 +42,9 @@ while True:
         #print("First : ",l)
         #l.clear()
         print("Second")
-        if(score>0.5):
+        if(score>0.6):
             (x,y,w,h) = bbox
-            class_name = classes[class_id]
+            class_name = classes[class_id]       #Object names
             l.append(class_name)
 
             cv2.putText(frame, class_name, (x, y-10), font, fontScale= font_scale, color = (200, 0, 50), thickness= 2)
@@ -59,7 +59,7 @@ while True:
     text_speech.say(res2)
     text_speech.runAndWait()
     print("class id", class_ids," and ",l)
-    time.sleep(5)
+    time.sleep(2)
     #print("scores", scores)
     #print("bboxes", bboxes)
 
