@@ -2,7 +2,9 @@ import cv2
 import pyttsx3
 import time
 import requests
+import os
 import speech_recognition as sr
+import key
 
 # generate voice instructions
 engine = pyttsx3.init()
@@ -12,13 +14,21 @@ engine.setProperty('voice', voices[1].id)  # change voice here if needed
 def object_detection():
     try:
         ##OPENCV DNN
-        net = cv2.dnn.readNet("E:/Project/Blindness Assistant/dnn_model/yolov4.weights", "E:/Project/Blindness Assistant/dnn_model/yolov4.cfg")
+        if(os.path.isdir("dnn_model")):
+            os.chdir("dnn_model")
+            dir="dnn_model"
+            f1="yolov4.weights"
+            f2="yolov4.cfg"
+            f3="classes.txt"
+            weights=os.path.abspath(f1)
+            config=os.path.abspath(f2)
+            file_name=os.path.abspath(f3)
+        net = cv2.dnn.readNet(weights, config)
         model = cv2.dnn_DetectionModel(net)
         model.setInputParams(size =(320,320), scale = 1/255)
 
         ## LOAD CLASS LISTS
-        classes = []  ##empty list of python
-        file_name = "E:/Project/Blindness Assistant/dnn_model/classes.txt"
+        classes = []
 
         with open(file_name, "rt") as f:
             for class_name in f.readlines():
@@ -140,7 +150,7 @@ def landmarks(API_KEY,origin):
 
 
 if __name__ == "__main__":
-    API_KEY="AIzaSyDvGdaP1ljBfsJ92IhC1KYqf7Abikybw9s"
+    API_KEY=key.api_key
 
     key = int(input("What do you want to do? \n1. Obstacle Detection \n2. Navigation \n3. Nearest Landmarks\n"))
     if(key==1): 
