@@ -26,6 +26,7 @@ def object_detection():
         else:
             print("Required Files Not Found.")
             return
+        os.chdir("..")
         net = cv2.dnn.readNet(weights, config)
         model = cv2.dnn_DetectionModel(net)
         model.setInputParams(size =(320,320), scale = 1/255)
