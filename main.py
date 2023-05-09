@@ -103,9 +103,11 @@ def navigation(API_KEY,origin,destination):
 def landmarks(API_KEY,origin):
     try:
         # Ask user for address input
+        list = ["atm","bank","doctor","hospital","pharmacy","school","police"]
+        for i in range(0,len(list)):
+            print(f"Press {i+1} to find {list[i]}s near you.")
         choice = int(input("Enter choice number : "))
         choice -=1 
-        list = ["atm","bank","doctor","hospital","pharmacy","school","police"]
 
         # Define API endpoint and parameters
         url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
