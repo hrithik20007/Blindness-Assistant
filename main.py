@@ -23,6 +23,9 @@ def object_detection():
             weights=os.path.abspath(f1)
             config=os.path.abspath(f2)
             file_name=os.path.abspath(f3)
+        else:
+            print("Required Files Not Found.")
+            return
         net = cv2.dnn.readNet(weights, config)
         model = cv2.dnn_DetectionModel(net)
         model.setInputParams(size =(320,320), scale = 1/255)
