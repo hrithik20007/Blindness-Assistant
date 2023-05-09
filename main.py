@@ -72,8 +72,6 @@ def object_detection():
 
 def navigation(API_KEY,origin,destination):
     # calculate the directions from point A to point B using Google Maps API
-    #print(origin)
-    #print(destination)
     url = f"https://maps.googleapis.com/maps/api/directions/json?origin={origin}&destination={destination}&mode=walking&key={API_KEY}"
     response = requests.get(url)
     data = response.json()
@@ -104,7 +102,6 @@ def navigation(API_KEY,origin,destination):
 def landmarks(API_KEY,origin):
     try:
         # Ask user for address input
-        #origin = input("Enter your address : ")
         choice = int(input("Enter choice number : "))
         choice -=1 
         list = ["atm","bank","doctor","hospital","pharmacy","school","police"]
